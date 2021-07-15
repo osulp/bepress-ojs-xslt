@@ -18,7 +18,7 @@ Note that this is a somewhat hands-on process. If you're using this toolset, it'
 
 1. __Export metadata records from Digital Commons as an Excel file.__ Consult the [Digital Commons documentation](https://bepress.com/reference_guide_dc/batch-upload-export-revise/) for guidance on exporting. 
 2. __Clean up the spreadsheet metadata and export to CSV.__ 
-3. __Convert CSV metadata to flat XML.__ Python code originally from (FB36 on ActiveState)[https://code.activestate.com/recipes/577423-convert-csv-to-xml/], with modifications by OSULP.
+3. __Convert CSV metadata to flat XML.__ Python code originally from [FB36 on ActiveState](https://code.activestate.com/recipes/577423-convert-csv-to-xml/), with modifications by OSULP.
 
     - `python3 csv_to_xml.py {source_CSV_filename}.csv {output_XML_filename}.xml`
     - e.g. `python3 csv_to_xml.py bepress_metadata_sample.csv flat_xml_sample.xml`
