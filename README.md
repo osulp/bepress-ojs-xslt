@@ -69,7 +69,6 @@ Because there are not many descriptive metadata elements available for Issues in
 
     - Replace XML reserved characters with HTML entities: change `&` to `&amp;` ; `<` to `&lt;` ; `>` to `&gt;`.
         - UNLESS they are part of HTML markup that will be wrapped in CDATA tags, such as in an abstract field.
-    - Ensure all items have a volume number in the `volnum` column and an issue number in the `issnum` column. These are used to group contents by issue. 
     - Verify the correct order of contents. The ordering of contents in OJS follows the order of the XML import files.
     - Ensure all items have publication dates, and ensure all publication dates use format `YYYY-MM-DD`.
 
