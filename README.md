@@ -30,7 +30,7 @@ This table shows the fields included in the original use case's metadata export 
 | fpage | article/pages	| _na_ | concatenated with `lpage` value |
 | lpage | article/pages	| _na_ | concatenated with `fpage` value |
 | distribution_license	| _na_ | _na_ | field included but blank in original dataset |
-| abstract | article/abstract | issue/description | |
+| abstract | article/abstract | issue/description | if abstract text has HTML then see Added Fields below |
 | comments | article/authors/author/biography | _na_ | field was used for author bios in original dataset |
 | fulltext_url | | | field included but blank in original dataset - values added during cleanup |
 | peer_reviewed	| _na_ | _na_ | no appropriate mapping destination |
@@ -48,15 +48,26 @@ This table shows the fields included in the original use case's metadata export 
 | author1_suffix | _na_ | _na_ | no appropriate mapping destination |	
 | author1_email | article/authors/author/email | _na_ | applies to additional author numbers |
 | author1_institution | article/authors/author/affiliation | _na_ | applies to additional author numbers |
-| calc_url | article/id[@type="public"]	| _na_ | XSLT parses final portion of URL, to be used in new URL path |
+| calc_url | article/id[@type="public"]	| _na_ | XSLT parses URL for substring after the {journal_id} and replaces `/` with `_`; used in new URL path |
 | context_key | _na_ | _na_ | Digital Commons system field |
-| issue	| _na_ | _na_ | field is used to group issue contents and name output files |
+| issue	| _na_ | issue/id[@type="public"] | XSLT parses for issue ID from field value. expected format is `{journal_id}/{vol#}/{iss#}`. field is also used to group issue contents and name output files |
 | ctmtime | _na_ | _na_ | Digital Commons system field |
 
 #### General Notes 
 
 Because there are not many descriptive metadata elements available for Issues in OJS, multiple Bepress fields are compiled into the OJS `issue/description` element. For ease of reading, HTML markup is used to add headings and whitespace.  
 
+### Added Fields
+
+The following fields should or may be added to the exported data, and are included in the XSLT.
+
+| Column Header | Data Source | OJS XPath - Submissions | OJS XPath - Issues | Notes |
+|-----|-----|-----|-----|-----|
+| abstract_cdata | concatenate the string `<![CDATA[` + text of abstract field + the string `]]>` | article/abstract | issue/description | use to preserve HTML markup in abstract text |
+
+
+
+* Google Sheets formula used for "abstract_cdata": `=IF(NOT(K2=""),CONCATENATE("<![CDATA[",K2,"]]>"),"")` where K is the "abstract" column 
 - - - - - - - -
 
 ### Data Preparation
