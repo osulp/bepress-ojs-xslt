@@ -99,7 +99,7 @@ The following fields should or may be added to the exported data, and are includ
 - Ensure all items have publication dates, and ensure all publication dates use format `YYYY-MM-DD`.
 - Ensure all items other than issue-level items have the URL for the full text (e.g. PDF file) in the fulltext_url column. These are used to fetch the full text remotely and add it as an article galley to OJS. __Note that issue galleys cannot be fetched remotely using the OJS Native XML Plugin._
     - The original project data did not have values in the fulltext_url field, and we used a Google Sheets IMPORTXML function to add them to the dataset. 
-    - YMMV but our function looked like 
+    - YMMV but our function looked like: `=IMPORTXML({calc_url cell},"html/body/div[@id='olaq']/div[@id='container']/div[@id='wrapper']/div[@id='content']/div[@id='main']/div[@id='display-pdf']/object/@data
 
 4. __Export spreadsheet metadata to CSV.__
 
