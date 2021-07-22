@@ -24,8 +24,8 @@ This table shows the fields included in the original use case's metadata export 
 | Bepress Field | OJS XPath - Submissions |	OJS XPath - Issues | Notes |
 | ----- | ----- | ----- | ----- |
 | title | article/title | issue/issue_identification/title | |
-| keywords | article/keywords | issue/description | |
-| disciplines | article/disciplines | issue/description | |
+| keywords | article/keywords | issue/description | XSLT expects comma delimiter |
+| disciplines | article/disciplines | issue/description | XSLT expects semicolon delimiter |
 | document_type | article/@section_ref | _na_ | a specified document_type designates an OJS Issue; this can be updated in the local_data.xml file |
 | doi | article/id[@type="doi"] | issue/id[@type="doi"] | OJS DOI Plugin must be enabled before importing, otherwise DOI is not saved upon import | 
 | volnum | _na_ | issue/issue_identification/volume | OJS requires an integer | 
@@ -45,12 +45,12 @@ This table shows the fields included in the original use case's metadata export 
 | publisher | _na_ | _na_ | no appropriate mapping destination; data is included in OJS journal configuration |	
 | issn | _na_ | _na_ | no appropriate mapping destination; data is included in OJS journal configuration |
 | journal_id | _na_ | _na_ | no appropriate mapping destination; data is included in OJS journal configuration |	
-| author1_fname | article/authors/author/givenname | _na_ | applies to additional author numbers (author2_fname, author3_fname, etc.) |
+| author1_fname | article/authors/author/givenname | _na_ | applies to additional author numbers (author2_fname, author3_fname, etc.); all included authors must have fname |
 | author1_mname	| article/authors/author/givenname | _na_ | concatenated with `_fname`; applies to additional author numbers |
-| author1_lname | article/authors/author/familyname	| _na_ | applies to additional author numbers |
+| author1_lname | article/authors/author/familyname	| _na_ | applies to additional author numbers; all included authors must have lname |
 | author1_suffix | _na_ | _na_ | no appropriate mapping destination |	
 | author1_email | article/authors/author/email | _na_ | applies to additional author numbers |
-| author1_institution | article/authors/author/affiliation | _na_ | applies to additional author numbers |
+| author1_institution | article/authors/author/affiliation | _na_ | applies to additional author numbers; all included authors must have institution |
 | calc_url | article/id[@type="public"]	| _na_ | XSLT parses URL for substring after the {journal_id} and replaces `/` with `_`; the result is used in new URL path |
 | context_key | _na_ | _na_ | Digital Commons system field |
 | issue	| _na_ | issue/id[@type="public"] | XSLT parses for issue ID from field value. expected format is `{journal_id}/{vol#}/{iss#}`. field is also used to group issue contents and name output files |
@@ -76,11 +76,13 @@ The following fields should or may be added to the exported data, and are includ
 
 1. __Export metadata records from Digital Commons as an Excel file.__ Consult the [Digital Commons documentation](https://bepress.com/reference_guide_dc/batch-upload-export-revise/) for guidance on exporting. 
 
-1. __Review the field set.__ 
+2. __Review the field set.__ 
 
 - The XSLT expects column headers matching the strings given in the "Bepress Field" column in the metadata mapping table above, which align with Bepress's documentation. If your column headers do not match those strings, either the column headers or the XSLT must be updated so that they agree.
     - If your Digital Commons exported data has additional fields not included in the metadata mapping above, the XSLT may be updated to accommodate them. Consult the appropriate versions of the [PKP Native Schema](https://github.com/pkp/pkp-lib/blob/main/plugins/importexport/native/pkp-native.xsd) and [OJS Native Schema](https://github.com/pkp/ojs/blob/main/plugins/importexport/native/native.xsd).
 - Some fields have required or expected formatting. In case of disagreement, either the data or the XSLT will need updating for accurate results. _Some assumptions about expected formatting were made based on the original project dataset._
+    - keywords: expected delimiter is comma, consistent with Bepress documentation (XSLT requirement)
+    - disciplines: expected delimiter is semicolon, consistent with Bepress documentation (XSLT requirement)
     - volnum: must be an integer (OJS requirement)
     - distribution_license: must be a URL (OJS + XSLT requirement, if included)
     - fulltext_url: must be a URL (XSLT requirement)
@@ -89,7 +91,7 @@ The following fields should or may be added to the exported data, and are includ
     - calc_url: expected to use `{base URL}/{journal_id}/{unique path to item}`, XSLT parses using the `journal_id` (XSLT requirement)
     - issue: expected to use `{journal_id}/{vol#}/{iss#}` (XSLT requirement)
 
-1. __Clean up the spreadsheet metadata.__ 
+3. __Clean up the spreadsheet metadata.__ 
 
 - Replace XML reserved characters with HTML entities: change `&` to `&amp;` ; `<` to `&lt;` ; `>` to `&gt;`;
     - __UNLESS__ they are part of HTML markup that will be wrapped in CDATA tags, such as in an abstract field.
@@ -99,9 +101,9 @@ The following fields should or may be added to the exported data, and are includ
     - The original project data did not have values in the fulltext_url field, and we used a Google Sheets IMPORTXML function to add them to the dataset. 
     - YMMV but our function looked like 
 
-1. __Export spreadsheet metadata to CSV.__
+4. __Export spreadsheet metadata to CSV.__
 
-1. __Update local data configuration file.__ 
+5. __Update local data configuration file.__ 
 
 - - - - -
 
@@ -112,7 +114,7 @@ The following fields should or may be added to the exported data, and are includ
 - `python3 csv_to_xml.py {source_CSV_filename}.csv {output_XML_filename}.xml`
 - e.g. `python3 csv_to_xml.py bepress_metadata_sample.csv flat_xml_sample.xml`
 
-1. __Transform metadata to PKP/OJS Native XML using XSLT.__ XSLT can be run using software like Oxygen XML Editor, or from the command line with Saxon. 
+2. __Transform metadata to PKP/OJS Native XML using XSLT.__ XSLT can be run using software like Oxygen XML Editor, or from the command line with Saxon. 
 
 - Output will be one XML file per journal issue, saved to a directory called `import_files`.
 
@@ -121,4 +123,4 @@ The following fields should or may be added to the exported data, and are includ
 - Content files are fetched using remote URLs.  
 - If DOIs are included in the import files, make sure to enable the DOI Plugin _before_ importing. 
     
-6. Review; modify and repeat as needed. 
+4. Review; modify and repeat as needed. 
