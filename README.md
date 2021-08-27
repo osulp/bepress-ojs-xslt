@@ -13,7 +13,6 @@ Based on the shape of the data in our project, the current toolset was built to 
 
 Upcoming work:
 
-* generify the XSL for 3.1 (i.e. replace all OSU- and OLAQ-specific shortcuts)
 * add common/standard bepress fields to XSLT that were not part of OLAQ dataset and thus not included in original script
 * documentation/user guide/readme development
 * stretch goal = modify for more recent OJS releases
@@ -56,6 +55,9 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
     - The original project data did not have values in the fulltext_url field, and we used a Google Sheets IMPORTXML function to add them to the dataset. 
     - YMMV but our function looked like: `=IMPORTXML({calc_url cell},"html/body/div[@id='olaq']/div[@id='container']/div[@id='wrapper']/div[@id='content']/div[@id='main']/div[@id='display-pdf']/object/@data`
     - Ampersands in the URL must be replaced with the `&amp;` entity
+- Notes on authors: 
+    - OJS wants all non-issue-level items to have at least one author. The spreadsheet cleanup stage is one opportunity to add those as appropriate. Users can also supply a default value for items without specified authors in the local_data.xml configuration file.
+    - Based on the OLAQ project, authors present in the issue level record are considered by the XSLT to be Editors and their information is included within the Issue Description field.   
 
 4. __Export spreadsheet metadata to CSV.__
 
