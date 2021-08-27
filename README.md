@@ -59,6 +59,9 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 
 4. __Export spreadsheet metadata to CSV.__
 
+- For instance in Google Sheets, `File > Download > Comma-separated values` 
+- For ease of execution, it is recommended to save the CSV to the same directory as the Python csv_to_xml.py script.
+
 5. __Update local data configuration file.__ 
 
 - - - - -
