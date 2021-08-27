@@ -56,7 +56,7 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
     - YMMV but our function looked like: `=IMPORTXML({calc_url cell},"html/body/div[@id='olaq']/div[@id='container']/div[@id='wrapper']/div[@id='content']/div[@id='main']/div[@id='display-pdf']/object/@data`
     - Ampersands in the URL must be replaced with the `&amp;` entity
 - Notes on authors: 
-    - OJS wants all non-issue-level items to have at least one author. The spreadsheet cleanup stage is one opportunity to add those as appropriate. Users can also supply a default value for items without specified authors in the local_data.xml configuration file.
+    - OJS requires all non-issue-level items to have at least one author. The spreadsheet cleanup stage is one opportunity to add those as appropriate. Users can also supply a default value for items without specified authors in the local_data.xml configuration file.
     - Based on the OLAQ project, authors present in the issue level record are considered by the XSLT to be Editors and their information is included within the Issue Description field.   
 
 4. __Export spreadsheet metadata to CSV.__
@@ -65,6 +65,13 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 - For ease of execution, it is recommended to save the CSV to the same directory as the Python csv_to_xml.py script.
 
 5. __Update local data configuration file.__ 
+
+- The `local_data.xml` file serves as a config or helper file for XSLT processing with `convert_bepressDC_to_PKPnative.xsl`. The XSLT will lookup project-specific information in the config file when processing the metadata, including:
+    - The `document_type` value that indicates an issue-level record;
+    - Values for default authorship, to use where no author is listed for an item;
+    - Section metadata to be associated with each document_type value in the source data.
+- Sample values from the OLAQ migration project are populated. Users should replace the OLAQ sample values between element tags with their own values.
+- Additional instructions are provided within the file.
 
 - - - - -
 
@@ -84,4 +91,4 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 - Content files are fetched using remote URLs.  
 - If DOIs are included in the import files, make sure to enable the DOI Plugin _before_ importing. 
     
-4. Review; modify and repeat as needed. 
+4. __Review results; modify and repeat as needed.__
