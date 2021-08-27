@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    This file serves as a config or helper file for XSLT processing with convert_bepressDC_to_PKPnative.xsl. 
+    Sample values from the OLAQ migration project are populated.
+    Users should replace the OLAQ sample values between element tags with their own values.
+-->
+     
+
+<local_data>
+    
+    <!-- Insert the string from the 'document_type' field 
+         that identifies issue-level records.
+         e.g. "full_issue" -->
+    <issue_doctype>full_issue</issue_doctype>
+    
+    <!-- 
+         Add information for a default author, 
+         to use for any article with no authors. 
+         
+         Can leave blank or comment out if 100% of articles have authors.
+         
+         givenname, familyname, and affiliation are required by OJS.
+    -->
+    <default_author>
+        <givenname>Oregon Library</givenname>
+        <familyname>Association</familyname>
+        <affiliation>OLA</affiliation>
+        <email></email>
+    </default_author>
+    
+    <!-- 
+         Add information for sections based on the 'document_type' field values.
+         Copy the 'section' wrapper and each subelement for each 'document_type' value.
+         Delete any extra 'section' wrappers and their contents.
+         All values present in 'document_type' should be accounted for, 
+         except the issue-level document type in issue_doctype above. 
+         
+         document_type: Insert the document_type string, 
+         e.g. "article" or "table_of_contents" 
+             
+         title: Provide a title for the section,
+         e.g. "Articles" or "Table of Contents"
+         (these will appear on issue landing pages)
+         
+         abbreviation: Provide an abbreviation to reference the section,
+         e.g. "ART" or "TOC"
+         
+         sequence_number: Provide a sequence number for ordering the sections
+         within issues,
+         e.g. "1" for the section that should appear first, etc.
+         
+         locale: Set the locale/language code associated with the section.
+         Use "en_US" for English. 
+         Other language codes found at https://translate.pkp.sfu.ca/projects/ojs/#languages
+    -->   
+    <section>
+        <document_type>table_of_contents</document_type>
+        <title>Table of Contents</title>
+        <abbreviation>TOC</abbreviation>
+        <sequence_number>1</sequence_number>
+        <locale>en_US</locale>
+    </section>
+    <section>
+        <document_type>introduction</document_type>
+        <title>Introduction</title>
+        <abbreviation>INT</abbreviation>
+        <sequence_number>2</sequence_number>
+        <locale>en_US</locale>
+    </section>    
+    <section>
+        <document_type>article</document_type>
+        <title>Articles</title>
+        <abbreviation>ART</abbreviation>
+        <sequence_number>3</sequence_number>
+        <locale>en_US</locale>
+    </section>    
+    <section>
+        <document_type>back_matter</document_type>
+        <title>Back Matter</title>
+        <abbreviation>BACK</abbreviation>
+        <sequence_number></sequence_number>
+        <locale>en_US</locale>
+    </section>    
+    
+</local_data>
