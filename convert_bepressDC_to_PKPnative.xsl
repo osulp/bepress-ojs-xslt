@@ -72,7 +72,7 @@
                         -->
                         <xsl:if
                             test="$issue_record/abstract/text() or $issue_record/abstract_cdata/text()">
-                            <xsl:text disable-output-escaping="yes">&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt;</xsl:text>
+                            <xsl:text disable-output-escaping="yes">&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt; </xsl:text>
                             <xsl:choose>
                                 <xsl:when test="abstract_cdata/text()">
                                     <xsl:value-of
@@ -257,19 +257,21 @@
                                 
                                 <!-- Either copy abstract, or, if abstract_cdata has been added to source data,
                                      wrap contents of abstract field in CDATA tags to keep original HTML formatting -->
-                                <abstract>
-                                    <xsl:choose>
-                                        <xsl:when test="abstract_cdata/text()">
-                                            <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-                                            <xsl:value-of select="abstract_cdata/text()"
-                                                disable-output-escaping="yes"/>
-                                            <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:value-of select="abstract"/>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </abstract>
+                                <xsl:if test="abstract/text() or abstract_cdata/text()">
+                                    <abstract>
+                                        <xsl:choose>
+                                            <xsl:when test="abstract_cdata/text()">
+                                                <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+                                                <xsl:value-of select="abstract_cdata/text()"
+                                                    disable-output-escaping="yes"/>
+                                                <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="abstract"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </abstract>
+                                </xsl:if>
                                 
                                 <!-- Copy distribution license URL -->
                                 <xsl:if test="distribution_license[contains(text(),'http')][not(contains(text(),' '))]">
