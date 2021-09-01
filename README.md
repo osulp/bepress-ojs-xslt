@@ -77,21 +77,25 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 
 - - - - -
 
-### Transformation
+### Transformation and Import
 
 1. __Convert CSV metadata to flat XML.__ Python code originally from [FB36 on ActiveState](https://code.activestate.com/recipes/577423-convert-csv-to-xml/), with modifications by OSULP.
 
 - `python3 csv_to_xml.py {source_CSV_filename}.csv {output_XML_filename}.xml`
 - e.g. `python3 csv_to_xml.py bepress_metadata_sample.csv flat_xml_sample.xml`
 
-2. __Transform metadata to PKP/OJS Native XML using XSLT.__ XSLT can be run using software like Oxygen XML Editor, or from the command line with Saxon. 
+2. __Transform metadata to PKP/OJS Native XML using XSLT.__ XSLT can be run using software like [Oxygen XML Editor](https://www.oxygenxml.com), or from the command line with [Saxon](http://saxon.sourceforge.net). 
 
-- Output will be one XML file per journal issue, saved to a directory called `import_files`.
+- The flat XML file will be the source XML for the transformation.
+- Output will be one XML file per journal issue, saved to a directory called `import_files`. 
+- Output filenames will be generated using the value in the `issue` field, replacing `/` with `_`, e.g. `olaq_vol23_iss3.xml` 
 
-3. __Import XML to OJS using Native XML Import plugin.__ 
+3. __Import XML to OJS using the Native XML Plugin.__ 
 
+- Follow the guidance in the [PKP Administrator's Guide](https://docs.pkp.sfu.ca/admin-guide/en/data-import-and-export#native-xml-plugin) for importing with the Native XML Plugin.
 - Content files are fetched using remote URLs.  
 - If DOIs are included in the import files, make sure to enable the DOI Plugin _before_ importing. 
+- Upload issue galley files (as needed) post-import. 
     
 4. __Review results; modify and repeat as needed.__
 
