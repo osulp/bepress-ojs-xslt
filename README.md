@@ -10,6 +10,8 @@ Based on the shape of the data in our project, the current toolset was built to 
 - issues contain one or more "articles" (translating to OJS "submissions")
 - each article has one and only one "document type" assigned (translating to an OJS "section")
 - each article has a single content file associated with it, and all content files are full text PDFs (translating to an OJS "article galley")
+- each article has a single version or revision to be migrated
+- all migrated contents should be in a published state in OJS
 
 Upcoming work:
 
@@ -92,3 +94,7 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 - If DOIs are included in the import files, make sure to enable the DOI Plugin _before_ importing. 
     
 4. __Review results; modify and repeat as needed.__
+
+- - - - - 
+
+_Have you used this? I'd love feedback and I'm glad to help with questions or troubleshooting. cara(dot)key(at)oregonstate(dot)edu_
