@@ -13,10 +13,6 @@ Based on the shape of the data in our project, the current toolset was built to 
 - each article has a single version or revision to be migrated
 - all migrated contents should be in a published state in OJS
 
-Upcoming work:
-
-* modify and add branches for more recent OJS releases
-
 ## Usage
 
 Note that this is a somewhat hands-on process. If you're using this toolset, it's because you would rather do the cleanup work before your journal data gets into OJS, rather than afterward. (If you prefer to do it afterward, other tools are out there.)
