@@ -15,9 +15,7 @@ Based on the shape of the data in our project, the current toolset was built to 
 
 Upcoming work:
 
-* add common/standard bepress fields to XSLT that were not part of OLAQ dataset and thus not included in original script
-* documentation/user guide/readme development
-* stretch goal = modify for more recent OJS releases
+* modify and add branches for more recent OJS releases
 
 ## Usage
 
@@ -68,7 +66,7 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 
 5. __Update local data configuration file.__ 
 
-- The `local_data.xml` file serves as a config or helper file for XSLT processing with `convert_bepressDC_to_PKPnative.xsl`. The XSLT will lookup project-specific information in the config file when processing the metadata, including:
+- The `local_data.xml` file serves as a config or helper file for XSLT processing with `bepress_to_PKP_3-1-1.xsl`. The XSLT will lookup project-specific information in the config file when processing the metadata, including:
     - The `document_type` value that indicates an issue-level record;
     - Values for default authorship, to use where no author is listed for an item;
     - Section metadata to be associated with each document_type value in the source data.
@@ -84,16 +82,16 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 - `python3 csv_to_xml.py {source_CSV_filename}.csv {output_XML_filename}.xml`
 - e.g. `python3 csv_to_xml.py bepress_metadata_sample.csv flat_xml_sample.xml`
 
-2. __Transform metadata to PKP/OJS Native XML using XSLT.__ XSLT can be run using software like [Oxygen XML Editor](https://www.oxygenxml.com), or from the command line with [Saxon](http://saxon.sourceforge.net). 
-
-- The flat XML file will be the source XML for the transformation.
+2. __Transform metadata to PKP/OJS Native XML using XSLT.__ Run the `bepress_to_PKP_3-1-1.xsl` transformation with the flat XML file output in the previous step as the source XML. 
+ 
+- XSLT can be run using software like [Oxygen XML Editor](https://www.oxygenxml.com), or from the command line with [Saxon](http://saxon.sourceforge.net). 
 - Output will be one XML file per journal issue, saved to a directory called `import_files`. 
 - Output filenames will be generated using the value in the `issue` field, replacing `/` with `_`, e.g. `olaq_vol23_iss3.xml` 
 
 3. __Import XML to OJS using the Native XML Plugin.__ 
 
 - Follow the guidance in the [PKP Administrator's Guide](https://docs.pkp.sfu.ca/admin-guide/en/data-import-and-export#native-xml-plugin) for importing with the Native XML Plugin.
-- Content files are fetched using remote URLs.  
+- Content files (article galleys) are fetched using remote URLs.  
 - If DOIs are included in the import files, make sure to enable the DOI Plugin _before_ importing. 
 - Upload issue galley files (as needed) post-import. 
     
@@ -101,4 +99,4 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 
 - - - - - 
 
-_Have you used this? I'd love feedback and I'm glad to help with questions or troubleshooting. cara(dot)key(at)oregonstate(dot)edu_
+_Have you used this? I'd love feedback, and I'm glad to help with questions or troubleshooting. cara(dot)key(at)oregonstate(dot)edu_
