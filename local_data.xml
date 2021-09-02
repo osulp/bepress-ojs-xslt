@@ -49,6 +49,7 @@
          sequence_number: Provide a sequence number for ordering the sections
          within issues,
          e.g. "1" for the section that should appear first, etc.
+         sequence_number is only used in version 3.1.2; omit if using a later version.
          
          locale: Set the locale/language code associated with the section.
          Use "en_US" for English. 
