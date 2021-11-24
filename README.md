@@ -80,7 +80,7 @@ Note that article galleys (full text PDF files) are fetched remotely from Digita
 - `python3 csv_to_xml.py {source_CSV_filename}.csv {output_XML_filename}.xml`
 - e.g. `python3 csv_to_xml.py bepress_metadata_sample.csv flat_xml_sample.xml`
 
-2. __Transform metadata to PKP/OJS Native XML using XSLT.__ Run the `bepress_to_PKP_3-1-1.xsl` transformation with the flat XML file output in the previous step as the source XML. 
+2. __Transform metadata to PKP/OJS Native XML using XSLT.__ Run the `bepress_to_PKP_3-1-2.xsl` transformation with the flat XML file output in the previous step as the source XML. 
  
 - XSLT can be run using software like [Oxygen XML Editor](https://www.oxygenxml.com), or from the command line with [Saxon](http://saxon.sourceforge.net). 
 - Output will be one XML file per journal issue, saved to a directory called `import_files`. 
