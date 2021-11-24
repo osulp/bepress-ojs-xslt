@@ -263,7 +263,7 @@
                                             <xsl:when test="abstract_cdata/text()">
                                                 <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
                                                 <xsl:value-of select="abstract_cdata/text()"
-                                                    disable-output-escaping="yes"/>
+                                                  disable-output-escaping="yes"/>
                                                 <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
                                             </xsl:when>
                                             <xsl:otherwise>
@@ -362,7 +362,7 @@
                                      Dates and Filesize will be automatically replaced with accurate values in OJS.
                                      (Ignore import warning about filesize mismatch.)
                                      Note: Assumes PDF submission files! -->
-                                <submission_file id="{$submission_id}" stage="public">
+                                <submission_file id="{$submission_id}" stage="final">
                                     <xsl:element name="revision">
                                         <xsl:attribute name="number" select="'1'"/>
                                         <xsl:attribute name="genre" select="'Article Text'"/>
