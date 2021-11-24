@@ -230,7 +230,7 @@
                                      Dates and Filesize will be automatically replaced with accurate values in OJS.
                                      (Ignore import warning about filesize mismatch.)
                                      Note: Assumes PDF submission files! -->
-                                <submission_file id="{$submission_id}" stage="final">
+                                <submission_file id="{$submission_id}" stage="proof">
                                     <xsl:element name="revision">
                                         <xsl:attribute name="number" select="'1'"/>
                                         <xsl:attribute name="genre" select="'Article Text'"/>
